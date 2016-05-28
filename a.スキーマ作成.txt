@@ -1,0 +1,76 @@
+create table row_market(
+ orderid STRING,
+ regionid STRING,
+ systemid STRING,
+ stationid STRING,
+ typeid STRING,
+ bid_flg STRING,
+ price STRING,
+ minvolume STRING,
+ volremain STRING,
+ volenter STRING,
+ issued STRING,
+ duration STRING,
+ duration2 STRING,
+ range STRING,
+ reportedby STRING,
+ reportedtime STRING
+) ROW FORMAT DELIMITED FIELDS TERMINATED BY "," ;
+
+
+create table eve_market_input(
+ orderid BIGINT,
+ regionid STRING,
+ systemid STRING,
+ stationid STRING,
+ typeid STRING,
+ bid_flg STRING,
+ price DOUBLE,
+ minvolume STRING,
+ volremain BIGINT,
+ volenter BIGINT,
+ issued STRING,
+ duration STRING,
+ range STRING,
+ reportedby STRING,
+ reportedtime TIMESTAMP
+);
+
+create table eve_market_input_latest(
+   orderid BIGINT,
+   bid_flg STRING,
+   reportedtime TIMESTAMP
+);
+
+create table eve_market_input_oldest(
+   orderid BIGINT,
+   bid_flg STRING,
+   reportedtime TIMESTAMP
+);
+
+
+
+create table eve_market(
+ orderid STRING,
+ regionid STRING,
+ systemid STRING,
+ stationid STRING,
+ typeid STRING,
+ bid_flg STRING,
+ price DOUBLE,
+ sell_count BIGINT,
+ reportedtime timestamp
+
+);
+
+
+create table eve_market_result(
+  regionid STRING,
+  systemid STRING,
+  typeid STRING,
+  sum_price BIGINT,
+  average_price DOUBLE,
+  sum_sell_count BIGINT,
+  reportedtime timestamp
+)  ROW FORMAT DELIMITED FIELDS TERMINATED BY ","
+tblproperties ('skip.header.line.count'='1');

@@ -1,0 +1,9 @@
+insert OVERWRITE table eve_market_input_latest
+select
+ orderid,
+ bid_flg,
+ max(reportedtime)
+from eve_market_input
+where
+ bid_flg='0'
+group by orderid,bid_flg,to_date(reportedtime)

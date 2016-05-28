@@ -1,0 +1,37 @@
+insert OVERWRITE table eve_market
+
+select
+ t1.orderid,
+ t1.regionid,
+ t1.systemid,
+ t1.stationid,
+ t1.typeid,
+ t1.bid_flg,
+ t1.price,
+ t2.volremain - t1.volremain as sellcount,
+ '2016-05-20 12:00:00.000000'
+from
+ eve_market_input as t1
+ inner join eve_market_input_latest as r1
+  on
+   t1.orderid = r1.orderid
+   and t1.reportedtime = r1.reportedtime
+   and t1.bid_flg = r1.bid_flg
+   and t1.bid_flg = '0'
+
+ inner join eve_market_input as t2
+ on
+  t1.orderid = t2.orderid
+  and t1.bid_flg = t2.bid_flg
+  and t1.bid_flg = '0'
+
+ inner join eve_market_input_oldest as r2
+ on
+  t2.orderid = r2.orderid
+  and t2.reportedtime = r2.reportedtime
+  and t2.bid_flg = r2.bid_flg
+  and t2.bid_flg = '0'
+ where t1.reportedtime > '2016-05-20 00:00:00'
+ and t1.reportedtime <= '2016-05-20 23:59:59'
+ and t2.reportedtime > '2016-05-20 00:00:00'
+ and t2.reportedtime <= '2016-05-20 23:59:59'

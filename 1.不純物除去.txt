@@ -1,0 +1,18 @@
+insert OVERWRITE table eve_market_input 
+ select regexp_replace(orderid,'"',''),
+ regexp_replace(regionid,'"',''),
+ regexp_replace(systemid,'"',''),
+ regexp_replace(stationid,'"',''),
+ regexp_replace(typeid,'"',''),
+ regexp_replace(bid_flg,'"',''),
+ regexp_replace(price,'"',''),
+ regexp_replace(minvolume,'"',''),
+ regexp_replace(volremain,'"',''),
+ regexp_replace(volenter,'"',''),
+ regexp_replace(issued,'"',''),
+ regexp_replace(duration,'"',''),
+ regexp_replace(range,'"',''),
+ regexp_replace(reportedby,'"',''),
+ regexp_replace(reportedtime,'"','')
+ from row_market
+ where reportedtime is not null

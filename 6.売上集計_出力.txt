@@ -1,0 +1,37 @@
+select
+ t1.regionid,
+ t1.systemid,
+ m3.regionname,
+ m4.solarsystemname,
+ m4.security,
+ case
+  when m4.security >= 0.5 then 'High'
+  when m4.security < 0.5 and m4.security >= 0 then 'Low'
+  else 'NULL'
+ end as security3,
+ m4.securityclass,
+ t1.typeid,
+ m1.typename,
+ m5.manufacture,
+ m5.group_level1,
+ m5.group_level2,
+ m5.group_level3,
+ m5.group_level4,
+ m5.group_level5,
+ m5.group_level6,
+ m5.group_level7,
+ t1.sum_price,
+ t1.average_price,
+ t1.sum_sell_count,
+ reportedtime
+from
+ eve_market_result as t1
+ inner join inv_types as m1
+  on t1.typeid = m1.typeid
+ inner join map_regions as m3
+  on t1.regionid = m3.regionid
+ inner join map_solar_systems as m4
+  on t1.regionid = m4.regionid
+     and t1.systemid = m4.solarsystemid
+ left outer join invgroups as m5
+  on t1.typeid = m5.typeid

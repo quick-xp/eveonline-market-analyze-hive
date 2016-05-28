@@ -1,0 +1,12 @@
+insert OVERWRITE table eve_market_result
+select
+ regionid,
+ systemid,
+ typeid,
+ sum(price) * sum(sell_count) as sum_price,
+ sum(price) * sum(sell_count) / sum(sell_count) as average_price,
+ sum(sell_count) as sum_sell_count,
+ reportedtime
+ from eve_market
+where sell_count > 0
+group by regionid,systemid,typeid,reportedtime
